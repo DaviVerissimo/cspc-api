@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import uol.compass.cspcapi.application.api.auth.dto.AuthenticatedResponseDTO;
 import uol.compass.cspcapi.application.api.auth.dto.LoginDTO;
 import uol.compass.cspcapi.application.api.generalPourposeDTO.ResponseDTO;
 import uol.compass.cspcapi.application.api.user.dto.CreateUserDTO;
@@ -44,15 +43,15 @@ public class AuthController {
     public ResponseEntity<?> login(@Valid @RequestBody LoginDTO login){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        login.email(),
-                        login.password()
+                        login.getEmail(),
+                        login.getPassword()
                 )
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtTokenProvider.createToken(authentication);
         return ResponseEntity.ok(
-                ResponseDTO.ok(new AuthenticatedResponseDTO(token))
+                ResponseDTO.ok(token)
         );
     }
 
@@ -60,10 +59,10 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> saveAdminUser(@Valid @RequestBody CreateUserDTO createUserDTO){
         User user = new User(
-                createUserDTO.firstName(),
-                createUserDTO.lastName(),
-                createUserDTO.email(),
-                createUserDTO.password()
+                createUserDTO.getFirstName(),
+                createUserDTO.getLastName(),
+                createUserDTO.getEmail(),
+                createUserDTO.getPassword()
         );
 
         Role role = roleService.findRoleByName("ROLE_ADMIN");

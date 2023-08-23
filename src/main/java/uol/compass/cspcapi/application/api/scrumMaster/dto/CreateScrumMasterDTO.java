@@ -1,9 +1,26 @@
 package uol.compass.cspcapi.application.api.scrumMaster.dto;
 
+// user -> student
 import jakarta.validation.constraints.NotBlank;
 import uol.compass.cspcapi.domain.user.User;
 
-public record CreateScrumMasterDTO(
-        @NotBlank(message = "user must not be empty")
-        User user
-) {}
+public class CreateScrumMasterDTO {
+    // User
+    @NotBlank(message = "user must not be empty")
+    private User user;
+
+    public CreateScrumMasterDTO() {
+    }
+
+    public CreateScrumMasterDTO(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+}

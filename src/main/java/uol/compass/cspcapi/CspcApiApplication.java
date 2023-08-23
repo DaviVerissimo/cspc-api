@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CspcApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CspcApiApplication.class, args);
+		//SpringApplication.run(CspcApiApplication.class, args);
 	}
 
 }
